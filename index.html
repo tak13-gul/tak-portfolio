@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Taslima Keya Full-Stack Software Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #0d0d12; --bg2: #13131a; --bg3: #1a1a24; --pearl: #0f0f16;
+  --h1: #f0eeff; --h2: #d4d0f0; --body: #8e8aae; --muted: #5c5880; --faint: #3a3758;
+  --gold: #c8a96e; --gold2: #e0c490;
+  --border: rgba(140,120,220,0.22); --border2: rgba(140,120,220,0.10);
+  --glass: rgba(18,18,28,0.78); --glass2: rgba(18,18,28,0.5);
+}
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--h2); font-family: 'Outfit', sans-serif; font-size: 16px; line-height: 1.7; min-height: 100vh; overflow-x: hidden; }
+
+/* AURORA */
+.aurora-bg { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+.ab { position: absolute; border-radius: 50%; filter: blur(90px); }
+.ab1 { width: 700px; height: 700px; background: radial-gradient(circle, #7c3aed 0%, transparent 65%); top: -150px; left: -150px; animation: drift1 22s ease-in-out infinite alternate; opacity: 0.35; }
+.ab2 { width: 550px; height: 550px; background: radial-gradient(circle, #1d4ed8 0%, transparent 65%); top: 25%; right: -100px; animation: drift2 28s ease-in-out infinite alternate; opacity: 0.15; }
+.ab3 { width: 500px; height: 500px; background: radial-gradient(circle, #065f46 0%, transparent 65%); bottom: -100px; left: 15%; animation: drift3 24s ease-in-out infinite alternate; opacity: 0.22; }
+.ab4 { width: 400px; height: 400px; background: radial-gradient(circle, #9d174d 0%, transparent 65%); bottom: 20%; right: 10%; animation: drift4 30s ease-in-out infinite alternate; opacity: 0.20; }
+.ab5 { width: 320px; height: 320px; background: radial-gradient(circle, #92400e 0%, transparent 65%); top: 45%; left: 38%; animation: drift5 18s ease-in-out infinite alternate; opacity: 0.15; }
+@keyframes drift1 { 0%{transform:translate(0,0) scale(1)} 50%{transform:translate(50px,-40px) scale(1.08)} 100%{transform:translate(-20px,30px) scale(0.96)} }
+@keyframes drift2 { 0%{transform:translate(0,0)} 50%{transform:translate(-40px,50px) scale(1.06)} 100%{transform:translate(30px,-25px) scale(1.02)} }
+@keyframes drift3 { 0%{transform:translate(0,0) scale(1.02)} 50%{transform:translate(35px,-35px) scale(0.96)} 100%{transform:translate(-25px,20px) scale(1.04)} }
+@keyframes drift4 { 0%{transform:translate(0,0)} 60%{transform:translate(-30px,-40px) scale(1.07)} 100%{transform:translate(20px,30px)} }
+@keyframes drift5 { 0%{transform:translate(0,0) scale(1)} 40%{transform:translate(40px,35px) scale(1.1)} 100%{transform:translate(-15px,-20px) scale(0.95)} }
+
+.grain { position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: 0.15;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.04'/%3E%3C/svg%3E"); }
+
+/* HOLO ANIMATIONS */
+@keyframes holoShift { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+@keyframes spinHalo  { to { transform: rotate(360deg); } }
+@keyframes growBar   { to { transform: scaleX(1); } }
+@keyframes revealTab { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+
+.holo-text {
+  background: linear-gradient(90deg,#9333ea,#3b82f6,#10b981,#ec4899,#f59e0b,#9333ea);
+  background-size: 300% 100%;
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; animation: holoShift 5s ease infinite;
+}
+
+/* LAYOUT */
+.layout { position: relative; z-index: 2; display: grid; grid-template-columns: 290px 1fr; min-height: 100vh; }
+
+/* SIDEBAR */
+.sidebar {
+  position: sticky; top: 0; height: 100vh;
+  display: flex; flex-direction: column;
+  padding: 2.5rem 1.75rem;
+  background: rgba(13,13,20,0.82);
+  backdrop-filter: blur(28px) saturate(1.8);
+  -webkit-backdrop-filter: blur(28px) saturate(1.8);
+  border-right: 1px solid var(--border);
+  overflow: hidden;
+}
+.sidebar::after {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg,#9333ea,#3b82f6,#10b981,#ec4899,#f59e0b);
+  background-size: 200% 100%; animation: holoShift 4s ease infinite;
+}
+
+/* AVATAR */
+.avatar-wrap { position: relative; width: 68px; height: 68px; margin-bottom: 1.25rem; flex-shrink: 0; }
+.avatar-halo { position: absolute; inset: -4px; border-radius: 50%; background: conic-gradient(from 0deg,#9333ea,#3b82f6,#10b981,#ec4899,#f59e0b,#9333ea); animation: spinHalo 4s linear infinite; z-index: 0; opacity: 0.5; filter: blur(2px); }
+.avatar-ring { width: 68px; height: 68px; border-radius: 50%; background: linear-gradient(135deg,#1e1030,#101828); display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 24px; color: var(--gold); position: relative; z-index: 1; border: 1.5px solid var(--border); }
+
+.name { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 1.5rem; letter-spacing: -0.01em; color: var(--h1); margin-bottom: 0.15rem; line-height: 1.2; }
+.title-tag { font-family: 'DM Mono', monospace; font-size: 0.67rem; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1.5rem; }
+
+.contact-list { list-style: none; margin-bottom: 1.75rem; }
+.contact-list li { display: flex; align-items: center; gap: 7px; font-size: 0.77rem; color: var(--body); margin-bottom: 0.45rem; font-family: 'DM Mono', monospace; }
+.contact-list li .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--gold); flex-shrink: 0; opacity: 0.7; }
+
+.nav { display: flex; flex-direction: column; gap: 2px; flex: 1; }
+.nav-btn { display: flex; align-items: center; gap: 10px; padding: 0.55rem 0.8rem; border: none; background: transparent; color: var(--muted); font-family: 'Outfit', sans-serif; font-size: 0.85rem; font-weight: 400; cursor: pointer; border-radius: 10px; transition: all 0.22s ease; text-align: left; }
+.nav-icon { width: 30px; height: 30px; border-radius: 8px; background: rgba(255,255,255,0.04); border: 1px solid var(--border2); display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; transition: all 0.22s; }
+.nav-btn:hover { color: var(--h2); background: rgba(255,255,255,0.05); }
+.nav-btn:hover .nav-icon { border-color: var(--border); background: rgba(255,255,255,0.06); }
+.nav-btn.active { color: var(--h1); font-weight: 500; background: rgba(255,255,255,0.07); }
+.nav-btn.active .nav-icon { background: white; border: 1px solid transparent; box-shadow: 0 0 0 1.5px rgba(147,51,234,0.35), 0 2px 12px rgba(147,51,234,0.15); background-image: linear-gradient(#1a1a2e,#1a1a2e), linear-gradient(135deg,#9333ea88,#3b82f688,#10b98188); background-origin: border-box; background-clip: padding-box, border-box; }
+
+.sidebar-footer { font-size: 0.67rem; color: var(--faint); font-family: 'DM Mono', monospace; padding-top: 1.25rem; border-top: 1px solid var(--border2); line-height: 1.6; }
+
+/* MAIN */
+.main { padding: 3rem 3.5rem 3rem 3rem; min-height: 100vh; }
+.tab-panel { display: none; animation: revealTab 0.4s cubic-bezier(0.16,1,0.3,1) forwards; }
+.tab-panel.active { display: block; }
+
+/* SECTION HEADER */
+.section-tag { font-family: 'DM Mono', monospace; font-size: 0.67rem; color: var(--gold); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 0.4rem; }
+.section-title { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 2.6rem; letter-spacing: -0.02em; color: var(--h1); line-height: 1.1; margin-bottom: 0.25rem; }
+.section-header { margin-bottom: 2.5rem; }
+
+/* GLASS CARD */
+.glass-card {
+  background: rgba(20,20,32,0.75);
+  backdrop-filter: blur(16px) saturate(1.4);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  position: relative; overflow: hidden;
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+.glass-card:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,0,0,0.07), 0 0 0 1px rgba(147,51,234,0.08); }
+/* shimmer sweep */
+.glass-card::before { content: ''; position: absolute; top: 0; left: -100%; width: 55%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent); transition: left 0.55s ease; pointer-events: none; z-index: 1; }
+.glass-card:hover::before { left: 160%; }
+
+/* PRISM DIVIDER */
+.prism-divider { height: 1px; background: linear-gradient(90deg,transparent,#9333ea33,#3b82f633,#10b98133,#ec489933,transparent); margin: 2rem 0; background-size: 200% 100%; animation: holoShift 5s ease infinite; }
+
+/* HOME */
+.hero-intro { max-width: 660px; margin-bottom: 2.75rem; }
+.hero-intro p { font-size: 1rem; color: var(--body); line-height: 1.85; margin-top: 1rem; font-weight: 300; }
+
+.stat-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin-bottom: 2.5rem; }
+.stat-card { background: rgba(20,20,32,0.75); border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem; backdrop-filter: blur(12px); position: relative; overflow: hidden; transition: transform 0.2s; }
+.stat-card:hover { transform: translateY(-2px); }
+.stat-card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg,#9333ea,#3b82f6,#10b981,#ec4899); background-size: 200% 100%; animation: holoShift 4s ease infinite; }
+.stat-number { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 2.8rem; line-height: 1; margin-bottom: 0.3rem; background: linear-gradient(135deg,#f0eeff,#a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.stat-label { font-family: 'DM Mono', monospace; font-size: 0.67rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+
+.highlight-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.highlight-card { padding: 1.5rem; }
+.highlight-icon { font-size: 1.3rem; margin-bottom: 0.65rem; }
+.highlight-title { font-family: 'Outfit', sans-serif; font-weight: 500; font-size: 0.9rem; color: var(--h1); margin-bottom: 0.35rem; }
+.highlight-text { font-size: 0.82rem; color: var(--body); line-height: 1.65; font-weight: 300; }
+
+/* EXPERIENCE */
+.timeline { position: relative; padding-left: 1.75rem; }
+.timeline::before { content: ''; position: absolute; left: 0; top: 10px; bottom: 0; width: 1px; background: linear-gradient(to bottom,#9333ea55,#3b82f633,transparent); }
+.timeline-item { position: relative; margin-bottom: 2.5rem; }
+.timeline-item::before { content: ''; position: absolute; left: -2.25rem; top: 10px; width: 9px; height: 9px; border-radius: 50%; background: #1a1a2e; border: 2px solid #a855f7; box-shadow: 0 0 10px rgba(168,85,247,0.55),0 0 24px rgba(168,85,247,0.2); }
+.job-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem; gap: 0.75rem; flex-wrap: wrap; }
+.job-title { font-family: 'Outfit', sans-serif; font-weight: 500; font-size: 1rem; color: var(--h1); }
+.job-company { font-size: 0.78rem; color: var(--gold); margin-bottom: 0.15rem; font-family: 'DM Mono', monospace; }
+.job-date { font-family: 'DM Mono', monospace; font-size: 0.67rem; color: var(--muted); background: rgba(255,255,255,0.05); border: 1px solid var(--border); padding: 0.2rem 0.65rem; border-radius: 100px; white-space: nowrap; backdrop-filter: blur(8px); }
+.job-bullets { list-style: none; margin-top: 0.65rem; }
+.job-bullets li { position: relative; padding-left: 1.2rem; font-size: 0.85rem; color: var(--body); margin-bottom: 0.45rem; line-height: 1.65; font-weight: 300; }
+.job-bullets li::before { content: '◆'; position: absolute; left: 0; top: 4px; font-size: 0.38rem; color: var(--gold2); }
+.job-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 0.9rem; }
+.tag { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--body); background: rgba(255,255,255,0.05); border: 1px solid var(--border); padding: 0.2rem 0.55rem; border-radius: 100px; letter-spacing: 0.02em; backdrop-filter: blur(4px); }
+
+/* SKILLS */
+.skills-section { margin-bottom: 2.25rem; }
+.skills-section-title { font-family: 'DM Mono', monospace; font-size: 0.67rem; color: var(--gold); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border2); display: flex; align-items: center; gap: 8px; }
+.skills-section-title::before { content: ''; display: inline-block; width: 16px; height: 1px; background: linear-gradient(90deg,#9333ea,#3b82f6); }
+.skill-bars { display: flex; flex-direction: column; gap: 1rem; }
+.skill-row { display: grid; grid-template-columns: 170px 1fr 38px; align-items: center; gap: 12px; }
+.skill-name { font-family: 'DM Mono', monospace; font-size: 0.77rem; color: var(--body); }
+.skill-bar-bg { height: 4px; background: rgba(255,255,255,0.06); border-radius: 100px; overflow: visible; position: relative; }
+.skill-bar-fill { height: 100%; border-radius: 100px; background: linear-gradient(90deg,#9333ea,#3b82f6,#10b981); background-size: 200% 100%; animation: growBar 1.2s cubic-bezier(0.16,1,0.3,1) forwards; transform-origin: left; transform: scaleX(0); position: relative; }
+.skill-bar-fill::after { content: ''; position: absolute; right: -1px; top: -3px; width: 10px; height: 10px; border-radius: 50%; background: #1a1a2e; border: 2px solid #a855f7; box-shadow: 0 0 8px rgba(168,85,247,0.6); }
+.skill-pct { font-family: 'DM Mono', monospace; font-size: 0.67rem; color: var(--muted); text-align: right; }
+.badge-grid { display: flex; flex-wrap: wrap; gap: 7px; }
+.badge { display: flex; align-items: center; gap: 7px; background: rgba(22,22,34,0.85); border: 1px solid var(--border); border-radius: 10px; padding: 0.4rem 0.85rem; font-size: 0.8rem; color: var(--h2); font-weight: 400; backdrop-filter: blur(8px); transition: all 0.18s; position: relative; overflow: hidden; }
+.badge:hover { background: rgba(255,255,255,0.98); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+.badge::after { content: ''; position: absolute; top: -50%; left: -60%; width: 40%; height: 200%; background: linear-gradient(90deg,transparent,rgba(255,255,255,0.08),transparent); transform: skewX(-20deg); transition: left 0.4s ease; }
+.badge:hover::after { left: 160%; }
+.badge-gem { width: 7px; height: 7px; border-radius: 2px; transform: rotate(45deg); flex-shrink: 0; }
+
+/* EDUCATION */
+.edu-card { padding: 2rem 2.25rem; margin-bottom: 1.5rem; }
+.edu-degree { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 1.65rem; color: var(--h1); margin-bottom: 0.3rem; }
+.edu-school { font-size: 0.82rem; color: var(--gold); font-family: 'DM Mono', monospace; margin-bottom: 1rem; letter-spacing: 0.04em; }
+.edu-meta { display: flex; flex-wrap: wrap; gap: 0.65rem; }
+.edu-meta-chip { font-size: 0.77rem; color: var(--body); background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 100px; padding: 0.25rem 0.75rem; font-family: 'DM Mono', monospace; backdrop-filter: blur(4px); }
+
+/* ABOUT */
+.about-lead { font-size: 1.02rem; color: var(--body); max-width: 600px; line-height: 1.9; margin-bottom: 2rem; font-weight: 300; }
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.about-block { padding: 1.5rem; }
+.about-block-title { font-family: 'DM Mono', monospace; font-size: 0.67rem; color: var(--gold); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.85rem; }
+.about-block p { font-size: 0.85rem; color: var(--body); line-height: 1.7; font-weight: 300; }
+.lang-list { display: flex; flex-direction: column; gap: 9px; }
+.lang-item { display: flex; align-items: center; justify-content: space-between; font-size: 0.85rem; }
+.lang-name { color: var(--h2); }
+.lang-chip { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: white; padding: 0.15rem 0.55rem; border-radius: 100px; background: linear-gradient(90deg,#9333ea,#3b82f6); background-size: 200% 100%; animation: holoShift 4s ease infinite; letter-spacing: 0.04em; }
+
+/* HOLOGRAPHIC CARD VARIANT */
+.holo-card-accent { position: relative; }
+.holo-card-accent::before { content: ''; position: absolute; inset: 0; border-radius: 18px; padding: 1px; background: linear-gradient(135deg,#9333ea33,#3b82f633,#10b98133,#ec489933,#f59e0b33); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; animation: holoShift 6s ease infinite; background-size: 300% 100%; }
+
+/* RESPONSIVE */
+@media (max-width: 860px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { position: static; height: auto; padding: 1.5rem; border-right: none; border-bottom: 1px solid var(--border); }
+  .nav { flex-direction: row; flex-wrap: wrap; }
+  .main { padding: 2rem 1.5rem; }
+  .stat-grid { grid-template-columns: 1fr 1fr; }
+  .highlight-grid, .about-grid { grid-template-columns: 1fr; }
+  .section-title { font-size: 2rem; }
+  .skill-row { grid-template-columns: 130px 1fr 32px; }
+}
+</style>
+</head>
+<body>
+
+<div class="aurora-bg" aria-hidden="true">
+  <div class="ab ab1"></div><div class="ab ab2"></div><div class="ab ab3"></div>
+  <div class="ab ab4"></div><div class="ab ab5"></div>
+</div>
+<div class="grain" aria-hidden="true"></div>
+
+<div class="layout">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="avatar-wrap">
+      <div class="avatar-halo" aria-hidden="true"></div>
+      <div class="avatar-ring">TK</div>
+    </div>
+    <div class="name">Taslima Keya</div>
+    <div class="title-tag">Full-Stack Engineer</div>
+    <ul class="contact-list">
+      <li><span class="dot"></span>Austin, TX</li>
+      <li><span class="dot"></span>tazkeya1@gmail.com</li>
+      <li><span class="dot"></span>GM · Google Alumni</li>
+    </ul>
+    <nav class="nav" role="tablist">
+      <button class="nav-btn active" onclick="switchTab('home')" role="tab" aria-selected="true"><span class="nav-icon">◈</span>Home</button>
+      <button class="nav-btn" onclick="switchTab('experience')" role="tab"><span class="nav-icon">◎</span>Experience</button>
+      <button class="nav-btn" onclick="switchTab('skills')" role="tab"><span class="nav-icon">◉</span>Skills</button>
+      <button class="nav-btn" onclick="switchTab('education')" role="tab"><span class="nav-icon">◷</span>Education</button>
+      <button class="nav-btn" onclick="switchTab('about')" role="tab"><span class="nav-icon">◌</span>About</button>
+    </nav>
+    <div class="sidebar-footer">&copy; 2025 Taslima Keya<br>All rights reserved</div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- HOME -->
+    <section class="tab-panel active" id="tab-home" role="tabpanel">
+      <div class="section-header hero-intro">
+        <div class="section-tag">welcome</div>
+        <h1 class="section-title">Engineer.<br><span class="holo-text">Builder. Leader.</span></h1>
+        <p>Full-stack engineer with 3+ years owning mission-critical software at General Motors, and roots in NLP research at Google. I bridge complex business domains and elegant, resilient code from data models to deployment pipelines.</p>
+      </div>
+      <div class="stat-grid">
+        <div class="stat-card"><div class="stat-number">3+</div><div class="stat-label">Years at GM</div></div>
+        <div class="stat-card"><div class="stat-number">5</div><div class="stat-label">Apps Rewritten</div></div>
+        <div class="stat-card"><div class="stat-number">$B</div><div class="stat-label">Revenue Supported</div></div>
+      </div>
+      <div class="highlight-grid">
+        <div class="glass-card highlight-card"><div class="highlight-icon">🏗️</div><div class="highlight-title">Application Owner</div><div class="highlight-text">Owned 2 production apps end-to-end roadmap decisions, architecture, on-call SLAs, and health scores.</div></div>
+        <div class="glass-card highlight-card"><div class="highlight-icon">🤖</div><div class="highlight-title">ML &amp; NLP at Google</div><div class="highlight-text">Fine-tuned BERT-based NLU models for intent classification pipelines during a Google internship.</div></div>
+        <div class="glass-card highlight-card"><div class="highlight-icon">🔁</div><div class="highlight-title">CI/CD &amp; DevOps</div><div class="highlight-text">Led GitHub Actions migration, expanded test coverage, and drove tech debt reduction at enterprise scale.</div></div>
+        <div class="glass-card highlight-card"><div class="highlight-icon">🌐</div><div class="highlight-title">Multilingual</div><div class="highlight-text">Fluent in English, Bangla, Hindi, and Urdu bridging global teams and diverse stakeholders.</div></div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section class="tab-panel" id="tab-experience" role="tabpanel">
+      <div class="section-header">
+        <div class="section-tag">career path</div>
+        <h2 class="section-title">Work <span class="holo-text">Experience</span></h2>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="job-header"><div><div class="job-title">Software Engineer</div><div class="job-company">General Motors · Austin, TX</div></div><span class="job-date">Jan 2023 – Present</span></div>
+          <ul class="job-bullets">
+            <li>Developed and optimized the global Fleet Sales web application supporting billions in annual revenue, working full-stack across Java Spring Boot and Angular / Next.js / React.</li>
+            <li>Designed RESTful APIs, data models, and optimized SQL queries powering reporting, analytics, and high-volume transactional workflows.</li>
+            <li>Served as Application Owner for one production app and Co-Owner for a second, driving roadmap, architecture, and same-day incident response.</li>
+            <li>Led GitHub Actions CI/CD migration, expanded test coverage, and reduced tech debt across the team.</li>
+            <li>Contributed to the rewrite and production deployment of 5 legacy applications; mentored 2 engineers through onboarding.</li>
+          </ul>
+          <div class="job-tags"><span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">Angular</span><span class="tag">Next.js</span><span class="tag">React</span><span class="tag">SQL</span><span class="tag">GitHub Actions</span><span class="tag">CI/CD</span></div>
+        </div>
+        <div class="timeline-item">
+          <div class="job-header"><div><div class="job-title">Software Developer Intern</div><div class="job-company">Google · Remote</div></div><span class="job-date">May – Aug 2022</span></div>
+          <ul class="job-bullets">
+            <li>Assisted training and fine-tuning NLU models using BERT for text classification, improving intent recognition accuracy.</li>
+            <li>Built data preprocessing and evaluation pipelines in Python to support model experimentation and reproducibility across training runs.</li>
+          </ul>
+          <div class="job-tags"><span class="tag">Python</span><span class="tag">BERT</span><span class="tag">NLP</span><span class="tag">ML Pipelines</span></div>
+        </div>
+        <div class="timeline-item">
+          <div class="job-header"><div><div class="job-title">Clinical Research Coordinator</div><div class="job-company">MediSync · Austin, TX</div></div><span class="job-date">May 2020 – May 2022</span></div>
+          <ul class="job-bullets">
+            <li>Collected, documented, and analyzed clinical data supporting patient eligibility, admissions, and outcomes reporting.</li>
+            <li>Built lightweight data-entry interfaces and used trend analysis to identify quality and workflow improvements.</li>
+          </ul>
+          <div class="job-tags"><span class="tag">Data Analysis</span><span class="tag">Clinical Workflows</span><span class="tag">Reporting</span></div>
+        </div>
+        <div class="timeline-item">
+          <div class="job-header"><div><div class="job-title">Research Data Entry Associate / Coordinator</div><div class="job-company">PPD · Austin, TX</div></div><span class="job-date">Aug 2016 – Mar 2020</span></div>
+          <ul class="job-bullets">
+            <li>Developed a sorting algorithm and co-authored an SOP that improved data-query resolution efficiency by 56%.</li>
+            <li>Ensured accuracy and timeliness of clinical data entry; recommended system improvements adopted across the team.</li>
+          </ul>
+          <div class="job-tags"><span class="tag">Algorithms</span><span class="tag">SOPs</span><span class="tag">Data Quality</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section class="tab-panel" id="tab-skills" role="tabpanel">
+      <div class="section-header">
+        <div class="section-tag">technical toolkit</div>
+        <h2 class="section-title">Skills &amp; <span class="holo-text">Expertise</span></h2>
+      </div>
+      <div class="skills-section">
+        <div class="skills-section-title">Languages &amp; Scripting</div>
+        <div class="skill-bars">
+          <div class="skill-row"><span class="skill-name">Java</span><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:95%"></div></div><span class="skill-pct">95%</span></div>
+          <div class="skill-row"><span class="skill-name">JavaScript / TypeScript</span><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:92%;animation-delay:.08s"></div></div><span class="skill-pct">92%</span></div>
+          <div class="skill-row"><span class="skill-name">Python</span><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:88%;animation-delay:.16s"></div></div><span class="skill-pct">88%</span></div>
+          <div class="skill-row"><span class="skill-name">SQL</span><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:88%;animation-delay:.24s"></div></div><span class="skill-pct">88%</span></div>
+          <div class="skill-row"><span class="skill-name">Bash / PowerShell</span><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:80%;animation-delay:.32s"></div></div><span class="skill-pct">80%</span></div>
+        </div>
+      </div>
+      <div class="prism-divider"></div>
+      <div class="skills-section">
+        <div class="skills-section-title">Frameworks &amp; Frontend</div>
+        <div class="badge-grid">
+          <span class="badge"><span class="badge-gem" style="background:linear-gradient(135deg,#9333ea,#6366f1)"></span>Spring Boot / Maven</span>
+          <span class="badge"><span class="badge-gem" style="background:linear-gradient(135deg,#3b82f6,#10b981)"></span>Angular</span>
+          <span class="badge"><span class="badge-gem" style="background:linear-gradient(135deg,#3b82f6,#10b981)"></span>Next.js</span>
+          <span class="badge"><span class="badge-gem" style="background:linear-gradient(135deg,#3b82f6,#10b981)"></span>React</span>
+          <span class="badge"><span class="badge-gem" style="background:linear-gradient(135deg,#10b981,#3b82f6)"></span>Node.js</span>
+          <span class="badge"><span class="badge-gem" style="background:linear-gradient(135deg,#6366f1,#9333ea)"></span>REST APIs</span>
+        </div>
+      </div>
+      <div class="skills-section">
+        <div class="skills-section-title">Data &amp; Analytics</div>
+        <div class="badge-grid">
+          <span class="badge"><span class="badge-gem" style="background:linear-gradient(135deg,#f59e0b,#ec4899)"></span>Power BI</span>
+          <span class="badge"><span class="badge-gem" style="background:linear-gradient(135deg,#f59e0b,#ec4899)"></span>Azure Synapse Workflows</span>
+          <span class="badge"><span class="badge-gem" style="background:linear-gradient(135deg,#f59e0b,#fb923c)"></span>Data Pipelines</span>
+          <span class="badge"><span class="badge-gem" style="background:linear-gradient(135deg,#fb923c,#ec4899)"></span>Reporting &amp; Analytics</span>
+          <span class="badge"><span class="badge-gem" style="background:linear-gradient(135deg,#9333ea,#ec4899)"></span>ML / NLP (BERT)</span>
+        </div>
+      </div>
+      <div class="skills-section">
+        <div class="skills-section-title">DevOps &amp; Tooling</div>
+        <div class="badge-grid">
+          <span class="badge"><span class="badge-gem" style="background:linear-gradient(135deg,#10b981,#3b82f6)"></span>GitHub Actions CI/CD</span>
+          <span class="badge"><span class="badge-gem" style="background:linear-gradient(135deg,#10b981,#22d3ee)"></span>Docker</span>
+          <span class="badge"><span class="badge-gem" style="background:linear-gradient(135deg,#22d3ee,#3b82f6)"></span>Unit &amp; Integration Testing</span>
+          <span class="badge"><span class="badge-gem" style="background:linear-gradient(135deg,#3b82f6,#9333ea)"></span>Automation Testing</span>
+          <span class="badge"><span class="badge-gem" style="background:linear-gradient(135deg,#9333ea,#ec4899)"></span>Production On-Call</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section class="tab-panel" id="tab-education" role="tabpanel">
+      <div class="section-header">
+        <div class="section-tag">academic background</div>
+        <h2 class="section-title">Education &amp; <span class="holo-text">Credentials</span></h2>
+      </div>
+      <div class="glass-card holo-card-accent edu-card">
+        <div class="edu-degree">B.S. Computer Science</div>
+        <div class="edu-school">Texas State University · San Marcos, TX</div>
+        <div class="edu-meta">
+          <span class="edu-meta-chip">🎓 Computer Engineering Concentration</span>
+          <span class="edu-meta-chip">🧪 Minor in Chemistry</span>
+          <span class="edu-meta-chip">📅 Graduated May 2022</span>
+        </div>
+      </div>
+      <div class="prism-divider"></div>
+      <div class="highlight-grid">
+        <div class="glass-card highlight-card"><div class="highlight-icon">🔬</div><div class="highlight-title">Clinical Research Background</div><div class="highlight-text">6+ years in clinical data environments before pivoting to software bringing rigor, traceability, and correctness to every codebase.</div></div>
+        <div class="glass-card highlight-card"><div class="highlight-icon">🧠</div><div class="highlight-title">Applied ML at Google</div><div class="highlight-text">Hands-on experience training and evaluating transformer-based NLU models at Google scale, with reproducible benchmarking pipelines.</div></div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="tab-panel" id="tab-about" role="tabpanel">
+      <div class="section-header">
+        <div class="section-tag">who i am</div>
+        <h2 class="section-title">About <span class="holo-text">Me</span></h2>
+      </div>
+      <p class="about-lead">I'm a full-stack engineer based in Austin, TX, currently at General Motors where I own and drive a global revenue-critical platform. My background spans clinical research, ML experimentation, and production enterprise software bringing both analytical precision and big-picture thinking to every problem I tackle.</p>
+      <div class="about-grid">
+        <div class="glass-card about-block">
+          <div class="about-block-title">Languages Spoken</div>
+          <div class="lang-list">
+            <div class="lang-item"><span class="lang-name">English</span><span class="lang-chip">Native</span></div>
+            <div class="lang-item"><span class="lang-name">Bangla</span><span class="lang-chip">Native</span></div>
+            <div class="lang-item"><span class="lang-name">Hindi</span><span class="lang-chip">Fluent</span></div>
+            <div class="lang-item"><span class="lang-name">Urdu</span><span class="lang-chip">Fluent</span></div>
+          </div>
+        </div>
+        <div class="glass-card about-block">
+          <div class="about-block-title">What I Bring</div>
+          <p>End-to-end ownership from stakeholder conversations to production deployments. I've mentored engineers, led subteams, and driven architectural decisions at enterprise scale.</p>
+        </div>
+        <div class="glass-card about-block">
+          <div class="about-block-title">Current Focus</div>
+          <p>Expanding expertise in cloud data engineering, Azure Synapse workflows, and Power BI analytics connecting the full data lifecycle from ingestion to business intelligence.</p>
+        </div>
+        <div class="glass-card about-block">
+          <div class="about-block-title">Fun Fact</div>
+          <p>Before writing production code, I spent years in clinical research which gave me an obsession with correctness, traceability, and building software people can genuinely trust.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+function switchTab(name) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
+  document.getElementById('tab-' + name).classList.add('active');
+  const clicked = [...document.querySelectorAll('.nav-btn')].find(b => b.getAttribute('onclick').includes("'" + name + "'"));
+  if (clicked) { clicked.classList.add('active'); clicked.setAttribute('aria-selected','true'); }
+}
+</script>
+</body>
+</html>
